@@ -9,24 +9,31 @@ We will be able to add or edit a part and we will be able to add or edit a proje
 """
 
 import sys
+import os
 from PyQt4 import QtGui, QtCore
 
 
-class parts(QtGui.QWidget):
+# These lines are so that the models can be used in the GUI
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "inventory.settings")
+from parts.models import *
+
+
+class parts_gui(QtGui.QWidget):
 
 	def __init__(self):
 
-		super(parts, self).__init__()
+		super(parts_gui, self).__init__()
 
 		self.initUI()
 
+
 	def initUI(self):
 
-		#qbtn = QtGui.QPushButton('Quit', self)
-		#qbtn.clicked.connect(QtCore.QCoreApplication.instance().quit)  
+		wkr_btn = QtGui.QPushButton('Add Worker', self)
+		wkr_btn.clicked.connect(add_worker)  
 		
-		#qbtn.resize(qbtn.sizeHint())
-		#qbtn.move(200, 200)
+		wkr_btn.resize(wkr_btn.sizeHint())
+		wkr_btn.move(200, 200)
 
 		part_no = QtGui.QLabel('Part Number')
 		package = QtGui.QLabel('Package')
@@ -39,11 +46,17 @@ class parts(QtGui.QWidget):
 		self.setWindowTitle('Inventory Set Up')
 		self.show()
 
+
+def add_worker():
+	w = Worker(first="dummy", last="dummy", role="none", access="none")
+	w.save()
+
+
 def main():
 
 	app = QtGui.QApplication(sys.argv)
 
-	start = parts()
+	start = parts_gui()
 
 	sys.exit(app.exec_())
 
