@@ -3,6 +3,7 @@
 
 """
 This is the actual GUI we will use to enter in the .csv and the simple entry ways
+We will be able to add or edit a part and we will be able to add or edit a projects
 
 
 """
